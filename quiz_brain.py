@@ -7,14 +7,14 @@ class QuizBrain:
     def next_question(self):
         current_question = self.ques_list[self.ques_no]
         self.ques_no += 1
-        user_answer = input(f"Q.{self.ques_no}: {current_question.text} (True/False): ")
+        user_answer = input(f"Q.{self.ques_no}: {current_question.text} 답: ")
         self.check_answer(user_answer, current_question.answer)
 
     def still_has_questions(self):
         return self.ques_no < len(self.ques_list)
 
-    def check_answer(self, user_answer, correct_answer):
-        if user_answer.lower() == correct_answer.lower():
+    def check_answer(self, user_answer, correct_answer):  #답 확인 함수
+        if int(user_answer) == int(correct_answer):  
             print("You are right!.")
             self.score += 1
         else:
