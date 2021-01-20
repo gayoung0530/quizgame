@@ -5,6 +5,7 @@ from data import question_data3
 from data import question_data4
 from data import question_data5
 from quiz_brain import QuizBrain
+import winsound
 
 question_bank = []  #user의 답 기록?
 def make_instance1():

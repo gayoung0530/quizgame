@@ -1,3 +1,4 @@
+import winsound
 class QuizBrain:
     def __init__(self, ques_list):
         self.ques_no = 0
@@ -15,9 +16,13 @@ class QuizBrain:
 
     def check_answer(self, user_answer, correct_answer):  #답 확인 함수
         if int(user_answer) == int(correct_answer):  
+            #정답소리
+            winsound.PlaySound('./sound/correct.wav',winsound.SND_FILENAME)
             print("You are right!.")
             self.score += 1
         else:
+            #오답소리
+            winsound.PlaySound('./sound/wrong.wav',winsound.SND_FILENAME)
             print("That's wrong.")
         print(f"Correct answer was: {correct_answer}.")
         print(f"Your current score is: {self.score}/{self.ques_no}")
