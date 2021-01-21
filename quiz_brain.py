@@ -25,5 +25,5 @@ class QuizBrain:
             winsound.PlaySound('./sound/wrong.wav',winsound.SND_FILENAME)
             print("That's wrong.")
         print(f"Correct answer was: {correct_answer}.")
-        print(f"Your current score is: {self.score}/{self.ques_no}")
+        #print(f"Your current score is: {self.score}/{self.ques_no}")
         print("\n")

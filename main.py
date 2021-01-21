@@ -160,25 +160,18 @@ while(1):
     quiz = QuizBrain(question_bank)  #객체 생성 
     while quiz.still_has_questions():
         quiz.next_question()
-    print(f"You've completed the quiz.\nYour final score was: {quiz.score}/{quiz.ques_no}")
+    #print(f"You've completed the quiz.\nYour final score was: {quiz.score}/{quiz.ques_no}")
+    user_score = quiz.score * 20  #한문제당 20점
     if quiz.score >=4:
-        print("합격입니다^0^")
+        result="합격"
     else:
-        print("불합격입니다 ㅠㅅㅠ")
+        result="불합격"
     question_bank = []
 
 #테이블 만들기
 with sqlite3.connect("login.db") as db:
-    c=db.cursor()
-c.execute("CREATE TABLE IF NOT EXISTS user2(id INTEGER NOT NULL, \
-     scoree INTEGER)")
-c.execute("SELECT * FROM user2")
+        c=db.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS user2(part INTEGER NOT NULL, score INTEGER, result TEXT)")
+insert='INSERT INTO user2(part,score,result) VALUES(?,?,?)'
+c.execute(insert,[(num),int(user_score),(result)])
 db.commit()
-
-find_user=("SELECT * FROM user2 WHERE id =? AND scoree=?")
-c.execute(find_user,[id,int(score)])
-insert='INSERT INTO user2(id,scoree) VALUES(?,?)'
-c.execute(insert,[id,int(score)])
-db.commit()
-
-    
