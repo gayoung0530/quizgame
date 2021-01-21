@@ -168,10 +168,10 @@ while(1):
         result="불합격"
     question_bank = []
 
-#테이블 만들기
-with sqlite3.connect("login.db") as db:
+    #테이블 만들기
+    with sqlite3.connect("login.db") as db:
         c=db.cursor()
-c.execute("CREATE TABLE IF NOT EXISTS user2(part INTEGER NOT NULL, score INTEGER, result TEXT)")
-insert='INSERT INTO user2(part,score,result) VALUES(?,?,?)'
-c.execute(insert,[(num),int(user_score),(result)])
-db.commit()
+    c.execute("CREATE TABLE IF NOT EXISTS user2(part INTEGER NOT NULL, score INTEGER, result TEXT)")
+    insert='INSERT INTO user2(part,score,result) VALUES(?,?,?)'
+    c.execute(insert,[(num),int(user_score),(result)])
+    db.commit()
