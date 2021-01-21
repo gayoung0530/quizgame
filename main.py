@@ -7,13 +7,11 @@ import sqlite3
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as ms
-#import tkinter.messagebox as msgbox
 
-#커서 바인딩
 with sqlite3.connect("login.db") as db:
     c=db.cursor()
-#테이블 생성(Datatype : INTEGER, INTEGER, TEXT)
-#학번,  점수, 합격여부를 저장하는 쿼리 작성
+#테이블 생성(Datatype : INTEGER, TEXT)
+#학번,  비번 를 저장하는 쿼리 작성
 c.execute("CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL, \
     password TEXT NOT NULL)")
 c.execute("SELECT * FROM user")
@@ -39,7 +37,7 @@ class main():
         results=c.fetchall()
         if results:
             self.logf.pack_forget()
-            self.head["text"]=self.id.get() + "\n 로그인 완료"
+            self.head["text"]=self.id.get() + "\n 로그인 완료\n창을 닫고 \n시험을 응시해 주세요"
             self.head["pady"]=150
         else:
             ms.showerror("경고!","id가 맞지 않습니다")
@@ -168,5 +166,19 @@ while(1):
     else:
         print("불합격입니다 ㅠㅅㅠ")
     question_bank = []
+
+#테이블 만들기
+with sqlite3.connect("login.db") as db:
+    c=db.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS user2(id INTEGER NOT NULL, \
+     scoree INTEGER)")
+c.execute("SELECT * FROM user2")
+db.commit()
+
+find_user=("SELECT * FROM user2 WHERE id =? AND scoree=?")
+c.execute(find_user,[id,int(score)])
+insert='INSERT INTO user2(id,scoree) VALUES(?,?)'
+c.execute(insert,[id,int(score)])
+db.commit()
 
     
