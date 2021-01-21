@@ -14,9 +14,19 @@ window.title("로그인 화면")
 # 사용자 학번과 비밀번호를 저장하는 변수 생성
 user_id, password = StringVar(), StringVar()
 
-# 로그인 성공 메세지 박스 
+# 로그인 메세지 박스 
 def info():
-    msgbox.showinfo("로그인","정상적으로 로그인되었습니다.")
+    with open("./chosun_student.txt","r",encoding="utf8") as student_file:
+        student_dict = {}
+        for x in student_file: 
+            dic = x.strip().split(":")
+            student_dict[dic[0]] = dic[1]
+        a=user_id.get()
+        b=password.get()
+        if a in student_dict.keys() and b in student_dict.values(): #정상 로그인
+            msgbox.showinfo("로그인","정상적으로 로그인되었습니다.")
+        else: #로그인 실패
+            msgbox.showinfo("로그인 실패","다시 입력하세요.")
 
 # 학번과 비번, 로그인 버튼의 GUI를 만드는 부분
 ttk.Label(window, text = "학번 : ").grid(row = 0, column = 0, padx = 10, pady = 10)
@@ -24,7 +34,6 @@ ttk.Label(window, text = "비밀번호 : ").grid(row = 1, column = 0, padx = 10,
 ttk.Entry(window, textvariable = user_id).grid(row = 0, column = 1, padx = 10, pady = 10)
 ttk.Entry(window, textvariable = password).grid(row = 1, column = 1, padx = 10, pady = 10)
 ttk.Button(window, command=info, text = "로그인").grid(row = 2, column = 1, padx = 10, pady = 10)
-
 window.mainloop()
 
 question_bank = []  #질문리스트
