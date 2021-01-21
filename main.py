@@ -2,39 +2,104 @@ from question_model import Question
 from data import *
 from quiz_brain import QuizBrain
 import winsound
+import sqlite3
 # tkinter를 사용하기 위한 import
 from tkinter import *
 from tkinter import ttk
-import tkinter.messagebox as msgbox
+from tkinter import messagebox as ms
+#import tkinter.messagebox as msgbox
 
-# tkinter 객체 생성
-window = Tk()
-window.title("로그인 화면")
+#커서 바인딩
+with sqlite3.connect("login.db") as db:
+    c=db.cursor()
+#테이블 생성(Datatype : INTEGER, INTEGER, TEXT)
+#학번,  점수, 합격여부를 저장하는 쿼리 작성
+c.execute("CREATE TABLE IF NOT EXISTS user(id INTEGER NOT NULL, \
+    password TEXT NOT NULL)")
+c.execute("SELECT * FROM user")
+db.commit()
+db.close()
 
-# 사용자 학번과 비밀번호를 저장하는 변수 생성
-user_id, password = StringVar(), StringVar()
+class main():
+    def __init__(self,master):
+        self.master=master
+        self.id=StringVar()
+        self.password=StringVar()
+        self.n_id=StringVar()
+        self.n_password=StringVar()
+        self.widgets()
+    
+    def login(self):
+        # conn=sqlite3.connect("C:/Users/user/Oss/oss/quizgame/quizgame-master/quizgame-master/resource/database.db", isolation_level=None)
+        # c=conn.cursor()
+        with sqlite3.connect("login.db") as db:
+            c=db.cursor()
+        find_user=("SELECT * FROM user WHERE id =? AND password = ?")
+        c.execute(find_user,[(self.id.get()),(self.password.get())])
+        results=c.fetchall()
+        if results:
+            self.logf.pack_forget()
+            self.head["text"]=self.id.get() + "\n 로그인 완료"
+            self.head["pady"]=150
+        else:
+            ms.showerror("경고!","id가 맞지 않습니다")
+    def new_user(self):
+        # conn=sqlite3.connect("C:/Users/user/Oss/oss/quizgame/quizgame-master/quizgame-master/resource/database.db", isolation_level=None)
+        # c=conn.cursor()
+        with sqlite3.connect("login.db") as db:
+            c=db.cursor()
+        find_user=("SELECT * FROM user WHERE id =?")
+        c.execute(find_user,[(self.id.get())])
+        if c.fetchall():
+            ms.showerror("oops!","id가 존재한다")
+        else:
+            ms.showinfo("성공!","Account Created")
+            self.log()
+        insert='INSERT INTO user(id,password) VALUES(?,?)'
+        c.execute(insert,[(self.n_id.get()),(self.n_password.get())])
+        db.commit()
 
-# 로그인 메세지 박스 
-def info():
-    with open("./chosun_student.txt","r",encoding="utf8") as student_file:
-        student_dict = {}
-        for x in student_file: 
-            dic = x.strip().split(":")
-            student_dict[dic[0]] = dic[1]
-        a=user_id.get()
-        b=password.get()
-        if a in student_dict.keys() and b in student_dict.values(): #정상 로그인
-            msgbox.showinfo("로그인","정상적으로 로그인되었습니다.")
-        else: #로그인 실패
-            msgbox.showinfo("로그인 실패","다시 입력하세요.")
+    def log(self):
+        self.id.set("")
+        self.password.set("")
+        self.crf.pack_forget()
+        self.head['text']="  로그인  "
+        self.logf.pack()
 
-# 학번과 비번, 로그인 버튼의 GUI를 만드는 부분
-ttk.Label(window, text = "학번 : ").grid(row = 0, column = 0, padx = 10, pady = 10)
-ttk.Label(window, text = "비밀번호 : ").grid(row = 1, column = 0, padx = 10, pady = 10)
-ttk.Entry(window, textvariable = user_id).grid(row = 0, column = 1, padx = 10, pady = 10)
-ttk.Entry(window, textvariable = password).grid(row = 1, column = 1, padx = 10, pady = 10)
-ttk.Button(window, command=info, text = "로그인").grid(row = 2, column = 1, padx = 10, pady = 10)
-window.mainloop()
+    def cr(self):
+        self.n_id.set("")
+        self.n_password.set("")
+        self.head['text']="계정생성"
+        self.logf.pack_forget()
+        self.crf.pack()
+
+    def widgets(self):
+        self.head=Label(self.master,text="  LOGIN  ",font=('freesansbold',35),pady=40)
+        self.head.pack()
+
+        self.logf=Frame(self.master,padx=10,pady=10)
+        Label(self.logf,text="ID       : ",font=('freesansbold',20),padx=5,pady=5).grid(sticky=W)
+        Entry(self.logf,textvariable=self.id,bd=8,font=('calibri',15,'bold')).grid(row=0,column=1,sticky=E)
+        Label(self.logf,text="Password : ",font=('freesansbold',20),padx=5,pady=5).grid(row=1,column=0,sticky=W)
+        Entry(self.logf,textvariable=self.password,bd=8,font=('calibri',15,'bold')).grid(row=1,column=1,sticky=E)
+        Button(self.logf,text='  LOGIN  ',bd=7,font=("monaco",15,'bold'),padx=5,pady=5,command=self.login).grid(row=2)
+        Button(self.logf,text='회원가입',bd=7,font=("monaco",15,'bold'),padx=5,pady=5,command=self.cr).grid(row=2,column=1)
+        self.logf.pack()
+
+        self.crf=Frame(self.master,padx=10,pady=10)
+        Label(self.crf,text="ID       : ",font=('freesansbold',20),padx=5,pady=5).grid(sticky=W)
+        Entry(self.crf,textvariable=self.n_id,bd=8,font=('calibri',15,'bold')).grid(row=0,column=1,sticky=E)
+        Label(self.crf,text="Password : ",font=('freesansbold',20),padx=5,pady=5).grid(row=1,column=0,sticky=W)
+        Entry(self.crf,textvariable=self.n_password,bd=8,font=('calibri',15,'bold')).grid(row=1,column=1,sticky=E)
+        Button(self.crf,text='로그인하기 ',bd=7,font=("monaco",15,'bold'),padx=5,pady=5,command=self.log).grid(row=2)
+        Button(self.crf,text='계정 생성',bd=7,font=("monaco",15,'bold'),padx=5,pady=5,command=self.new_user).grid(row=2,column=1)
+        self.logf.pack()
+
+root=Tk()
+main(root)
+root.geometry("400x350+350+150")
+root.mainloop()
+
 
 question_bank = []  #질문리스트
 #question.py 파일에서 각 파트에 해당되는 질문을 읽어들여 질문 리스트에 추가
