@@ -9,7 +9,7 @@ question_data1 = [
 question_data2 = [
 {"text": "인터페이스 보안을 위해 네트워크 영역에 적용될 수 있는 솔루션과 거리가 먼 것은?\n 1)IPSec\n 2)SSL\n 3)SMTP\n 4)S-HTTP\n", "answer":"3"},
 {"text": "형상 관리 도구의 주요 기능으로 거리가 먼 것은?\n 1)정규화\n 2)체크인\n 3)체크아웃\n 4)커밋\n", "answer":"1"},
-{"text": "알파, 베타 테스트와 가장 밀접한 연관이 있는 테스트 단계는?\n 1)단위 테스트\n, 2)인수 테스트\n, 3)통합 테스트\n, 4)시스템 테스트\n", "answer":"2"},
+{"text": "알파, 베타 테스트와 가장 밀접한 연관이 있는 테스트 단계는?\n 1)단위 테스트\n 2)인수 테스트\n 3)통합 테스트\n 4)시스템 테스트\n", "answer":"2"},
 {"text": "다음 중 클린 코드 작성원칙으로 거리가 먼 것은?\n 1)누구든지 쉽게 이해하는 코드 작성\n 2)중복이 최대화된 코드 작성\n 3)다른 모듈에 미치는 영향 최소화\n 4)단순, 명료한 코드 작성\n", "answer":"2"},
 {"text": "디지털 저작권 관리(DRM) 기술과 거리가 먼 것은?\n 1)콘텐츠 암호화 및 키 관리\n 2)콘텐츠 식별체계 표현\n 3)콘텐츠 오류 감지 및 복구\n 4)라이센스 발급 및 관리\n", "answer":"3"}
 ]
@@ -17,7 +17,7 @@ question_data2 = [
 question_data3 = [
 {"text": "분산 데이터베이스의 투명성에 해당하지 않는 것은?\n 1)Location Transparency\n 2)Replication Transparency\n 3)Failure Transparency\n 4)Media Access Transparency\n", "answer":"4"},
 {"text": "릴레이션 조작 시 데이터들이 불필요하게 중복되어 예기치 않게 발생하는 곤란한 현상을 의미하는 것은?\n 1)normalizaion\n 2)rollback\n 3)cardinality\n 4)anomaly\n", "answer":"4"},
-{"text": "다음에 해당하는 함수 종속의 추론 규칙은?\n \n[X->Y이고 Y->Z이면 X->Z이다.]\n \n1)분해 규칙\n 2)이행 규칙\n 3)반사 규칙\n 4)결합 규칙\n", "answer":"2"},
+{"text": "다음에 해당하는 함수 종속의 추론 규칙은?\n \n[X->Y이고 Y->Z이면 X->Z이다.]\n \n 1)분해 규칙\n 2)이행 규칙\n 3)반사 규칙\n 4)결합 규칙\n", "answer":"2"},
 {"text": "관계데이터 모델의 무결성 제약 중 기본키 값의 속성 값이 널(null)값이 아닌 원자 값을 갖는 성질은?\n 1)개체 무결성\n 2)참조 무결성\n 3)도메인 무결성\n 4)튜플의 유일성\n", "answer":"1"},
 {"text": "DCL 명령어가 아닌 것은?\n 1)COMMIT\n 2)ROLLBACK\n 3)GRANT\n 4)SELECT\n", "answer":"4"}
 ]
