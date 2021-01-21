@@ -2,6 +2,30 @@ from question_model import Question
 from data import *
 from quiz_brain import QuizBrain
 import winsound
+# tkinter를 사용하기 위한 import
+from tkinter import *
+from tkinter import ttk
+import tkinter.messagebox as msgbox
+
+# tkinter 객체 생성
+window = Tk()
+window.title("로그인 화면")
+
+# 사용자 학번과 비밀번호를 저장하는 변수 생성
+user_id, password = StringVar(), StringVar()
+
+# 로그인 성공 메세지 박스 
+def info():
+    msgbox.showinfo("로그인","정상적으로 로그인되었습니다.")
+
+# 학번과 비번, 로그인 버튼의 GUI를 만드는 부분
+ttk.Label(window, text = "학번 : ").grid(row = 0, column = 0, padx = 10, pady = 10)
+ttk.Label(window, text = "비밀번호 : ").grid(row = 1, column = 0, padx = 10, pady = 10)
+ttk.Entry(window, textvariable = user_id).grid(row = 0, column = 1, padx = 10, pady = 10)
+ttk.Entry(window, textvariable = password).grid(row = 1, column = 1, padx = 10, pady = 10)
+ttk.Button(window, command=info, text = "로그인").grid(row = 2, column = 1, padx = 10, pady = 10)
+
+window.mainloop()
 
 question_bank = []  #질문리스트
 #question.py 파일에서 각 파트에 해당되는 질문을 읽어들여 질문 리스트에 추가
@@ -70,3 +94,5 @@ while(1):
     else:
         print("불합격입니다 ㅠㅅㅠ")
     question_bank = []
+
+    
